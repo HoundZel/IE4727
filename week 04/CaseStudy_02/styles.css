@@ -1,0 +1,71 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    min-width: 800px;
+    background-color: #F5F5DD;
+}
+
+body div{
+    border: 2px solid red;
+}
+
+header{
+    background-color: #D1B38D;
+    padding-top: 1px;
+    height:20vh;
+}
+
+h1{
+    color: #91643D;
+    text-shadow: 2px 2px 2px black;
+    -webkit-text-stroke: 0.2px black;
+    font-family: "MV Boli", Times, serif;
+    font-size: 50px;
+}
+
+nav{
+    text-align: center;
+}
+
+nav ul{
+    list-style-type: none;
+    padding: 3px;
+    text-align: center;
+}
+
+nav ul li{
+    padding: 5px;
+}
+
+nav ul li a{
+    text-decoration: none;
+}
+
+#flex-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 73vh;
+}
+
+#navbar{
+    width:15%;
+    height: 100%;
+    background-color: #E2D1B3;
+}
+
+#content{
+    height: 100%;
+    flex:1;
+    
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height:7vh;
+    background-color: #D1B38D;
+}
