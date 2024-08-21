@@ -10,30 +10,48 @@
 <header>
     <h1>JavaJam Coffe House</h1>
 </header>
-<nav>
-    <b>
-        <a href="index.html">Home</a> &nbsp;
-        <a href="menu.html">Menu</a> &nbsp;
-        <a href="Music.html">Music</a> &nbsp;
-        <a href="jobs.html">Jobs</a>
-    </b>
-</nav>
-<div>
-    <dl>
+<div id="flex-container">
+<div id ="navbar"><nav>
+    <ul>
+        <li><a href="index.html" class="navButton"><b>Home</b></a> &nbsp;</li>
         <br>
-        <dt><strong>Just Java</strong></dt>
-        <br><dd>Regular house blend, decaffinated coffee, or flavour of the day</dd>
-        <br><dd>Endless Cup $2.00</dd>
+        <li><a href="menu.html" class="navButton"><b>Menu</b></a> &nbsp;</li>
         <br>
-        <dt><strong>Cafe au Lait</strong></dt>
-        <br><dd>House blended coffee infused into a smooth, steamed milk</dd>
-        <br><dd>Single $2.00 Double $3.00</dd>
+        <li><a href="Music.html" class="navButton"><b>Music</b></a> &nbsp;</li>
         <br>
-        <dt><strong>Iced Capuccino</strong></dt>
-        <br><dd>Sweetened espresson blended with icy-cold milk and served in a chilled glass</dd>
-        <br><dd>Single $4.75 Double $5.75</dd>
-        <br>
-    </dl>
+        <li><a href="jobs.html" class="navButton"><b>Jobs</b></a></li>
+    </ul>
+</nav></div>
+<div id ="content">
+    <div id="winding_road">
+        <h2>Coffee at JavaJam</h2>
+    </div>
+    <div id="menu_table">
+        <table border="1">
+            <tr>
+                <td class="itemname"><strong>Just Java</strong></td>
+                <td class="itemdesc">
+                    Regular house blend, decaffinated coffee, or flavour of the day
+                    <br><b>Endless Cup $2.00</b>
+                </td>
+            </tr>
+            <tr>
+                <td class="itemname"><strong>Cafe au Lait</strong></td>
+                <td class="itemdesc">
+                    House blended coffee infused into a smooth, steamed milk
+                    <br><b>Single $2.00 Double $3.00</b>
+                </td>
+            </tr>
+            <tr>
+                <td class="itemname"><strong>Iced Capuccino</strong></td>
+                <td class="itemdesc">
+                    Sweetened espresson blended with icy-cold milk and served in a chilled glass
+                    <br><b>Single $4.75 Double $5.75</b>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 </div>
 <footer>
     <small><i>Copyright &copy; 2014 JavaJam Coffee House</i></small>
