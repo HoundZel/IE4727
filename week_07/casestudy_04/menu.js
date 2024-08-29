@@ -1,55 +1,53 @@
-// Select all quantity input fields
-const subtotal1Display = document.getElementById('subtotal1');
-const subtotal2Display = document.getElementById('subtotal2');
-const subtotal3Display = document.getElementById('subtotal3');
+// Function to calculate and update the subtotal for a given item row
+function updateSubtotal(row) {
+    // Get the selected radio button value (price)
+    const selectedPrice = row.querySelector('input[type="radio"]:checked')?.value;
+    // Get the entered quantity
+    const quantity = row.querySelector('.quantity').value;
 
-//java inputs
-const javaQuantity =  document.querySelectorAll('#java');
-
-//cafe inputs
-const cafeQuantity =  document.querySelectorAll('#cafe');
-const cafePrice = document.querySelectorAll('#cafePrice');
-
-//cappucino inputs
-const cappucinoQuantity =  document.querySelectorAll('#cappucino');
-const cappucinoPrice = document.querySelectorAll('#cappucinoPrice');
-
-// Function to calculate subtotal
-function calculateSubtotal() {
-    let subtotal = 0;
-
-    // Loop through each quantity input to calculate subtotal
-    javaQuantity.forEach(input => {
-        const price = parseFloat(input.getAttribute('data-price')); // Get the price from the data-price attribute
-        const quantity = parseInt(input.value); // Get the current quantity
-        subtotal += price * quantity; // Calculate the total price for each item
-    });
+    // Calculate the subtotal
+    const subtotal = selectedPrice * quantity;
 
     // Update the subtotal display
-    subtotal1Display.textContent = subtotal.toFixed(2); // Display subtotal with two decimal places
+    row.querySelector('.subtotal').textContent = subtotal.toFixed(2);
+
+    // Call calculateTotal to update the grand total
+    calculateTotal();
 }
 
-// Attach event listeners to each quantity input
-javaQuantity.forEach(input => {
-    input.addEventListener('input', calculateSubtotal);
-});
+// Function to calculate the total price of all items
+function calculateTotal() {
+    let total = 0;
+    const subtotals = document.querySelectorAll('.subtotal');
 
-// Function to calculate subtotal
-function calculateSubtotal() {
-    let subtotal = 0;
-
-    // Loop through each quantity input to calculate subtotal
-    javaQuantity.forEach(input => {
-        const price = parseFloat(input.getAttribute('data-price')); // Get the price from the data-price attribute
-        const quantity = parseInt(input.value); // Get the current quantity
-        subtotal += price * quantity; // Calculate the total price for each item
+    subtotals.forEach(subtotal => {
+        total += parseFloat(subtotal.textContent);
     });
 
-    // Update the subtotal display
-    subtotal1Display.textContent = subtotal.toFixed(2); // Display subtotal with two decimal places
+    // Update the grand total display
+    document.getElementById('grandtotal').textContent = total.toFixed(2);
 }
 
-// Attach event listeners to each quantity input
-javaQuantity.forEach(input => {
-    input.addEventListener('input', calculateSubtotal);
-});
+// Function to add event listeners to each row
+function attachListeners() {
+    // Get all rows that contain item information
+    const rows = document.querySelectorAll('tr');
+
+    // Loop through each row and attach listeners to radio buttons and quantity input
+    rows.forEach(row => {
+        // Attach event listener to all radio buttons within the row
+        const priceRadios = row.querySelectorAll('.price');
+        priceRadios.forEach(radio => {
+            radio.addEventListener('change', () => updateSubtotal(row));
+        });
+
+        // Attach event listener to the quantity input within the row
+        const quantityInput = row.querySelector('.quantity');
+        if (quantityInput) {
+            quantityInput.addEventListener('input', () => updateSubtotal(row));
+        }
+    });
+}
+
+// Call the function to attach listeners when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', attachListeners);

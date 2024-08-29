@@ -134,9 +134,12 @@ nav ul li :hover{
 #menu_table table{
     border: 1px solid white;
     margin: auto;
-    width: 60vw;
+    width: 65vw;
     height:40vh;
     border-spacing: 0;
+}
+#menu_table th{
+    color: #441613;
 }
 #menu_table table td{
     border: 1px solid white;
@@ -157,6 +160,15 @@ nav ul li :hover{
 }
 .itemdesc{
     text-align: left;
+}
+.st{
+    width: 5vw;
+}
+#gt{
+    text-align: right;
+}
+#javaPrice{
+    display: none;
 }
 
 #music_table{
