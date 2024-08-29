@@ -230,4 +230,5 @@ footer{
     height:7vh;
     background-color: #D1B38D;
     padding-top: 30px;
+    z-index: -1;
 }
