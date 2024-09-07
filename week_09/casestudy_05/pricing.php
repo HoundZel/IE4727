@@ -1,3 +1,90 @@
+<?php
+    // Database connection
+    $servername = "localhost"; // Change if different
+    $username = "root"; // Replace with your username
+    $password = ""; // Replace with your password
+    $dbname = "coffee_prices";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Array of coffee types to fetch prices for
+    $coffeeTypes = [
+        'justjava',
+        'cafeaulait_single',
+        'cafeaulait_double',
+        'icedcappuccino_single',
+        'icedcappuccino_double'
+    ];
+
+    function getCoffeeRow($conn, $coffee) {
+        // Prepare and execute SQL query
+        $sql = "SELECT price FROM prices WHERE coffee = '$coffee'";
+        $result = $conn->query($sql);
+        
+        // Initialize price variable
+        $price = "N/A"; // Default value if not found
+    
+        if ($result) {
+            if ($result->num_rows > 0) {
+                // Fetch the result
+                $row = $result->fetch_assoc();
+                $price = htmlspecialchars($row['price']); // Get the price
+            }
+        }
+        return $price; // Return the price
+    }
+
+    function updateCoffeePrice($conn, $coffee, $price) {
+        // Prepare and execute SQL query
+        $sql = "UPDATE prices SET price = '$price' WHERE coffee = '$coffee'";
+        $result = $conn->query($sql);
+        
+        if ($result) {
+            return true; // Return true if successful
+        } else {
+            return false; // Return false if unsuccessful
+        }
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Update Just Java
+        if (isset($_POST['justjava']) && !empty($_POST['justjava_price'])) {
+            $price = $_POST['justjava_price'];
+            updateCoffeePrice($conn, 'justjava', $price);
+        }
+    
+        // Update Café au Lait Single
+        if (isset($_POST['cafeaulait']) && !empty($_POST['cafeaulait_single_price'])) {
+            $price = $_POST['cafeaulait_single_price'];
+            updateCoffeePrice($conn, 'cafeaulait_single', $price);
+        }
+    
+        // Update Café au Lait Double
+        if (isset($_POST['cafeaulait']) && !empty($_POST['cafeaulait_double_price'])) {
+            $price = $_POST['cafeaulait_double_price'];
+            updateCoffeePrice($conn, 'cafeaulait_double', $price);
+        }
+    
+        // Update Iced Cappuccino Single
+        if (isset($_POST['icedcappuccino']) && !empty($_POST['icedcappuccino_single_price'])) {
+            $price = $_POST['icedcappuccino_single_price'];
+            updateCoffeePrice($conn, 'icedcappuccino_single', $price);
+        }
+    
+        // Update Iced Cappuccino Double
+        if (isset($_POST['icedcappuccino']) && !empty($_POST['icedcappuccino_double_price'])) {
+            $price = $_POST['icedcappuccino_double_price'];
+            updateCoffeePrice($conn, 'icedcappuccino_double', $price);
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,43 +110,37 @@
         <h2>Coffee at JavaJam</h2>
     </div>
     <div id="menu_table">
+    <form method="POST" action="">
         <table border="1">
             <tr>
-                <th>Check</th>
-                <th colspan="2"></th>
-                <th>New Price</th>
-            </tr>
-            <tr>
-                <td class="st">$<span class="subtotal">0.00</span></td>
+                <td class="check_box"><input id = "justjava_checkbox" type="checkbox" name="justjava" onclick="toggleInput('justjava_checkbox', 'justjava_price')"></td>
                 <td class="itemname"><strong>Just Java</strong></td>
                 <td class="itemdesc">
                     Regular house blend, decaffinated coffee, or flavour of the day
-                    <br><b>Endless Cup $2.00  <input type="radio" id="javaPrice" class="price" name="java" value="2" checked></b>
+                    <br><b>Endless Cup $<?php echo getCoffeeRow($conn, 'justjava'); $price ?>&nbsp<input type="float" id="justjava_price" name="justjava_price" class="price" step="0.01" style="display:none;"></b>
                 </td>
-                <td><input type="number" class="quantity" name="quantity_java" min="0" max="999" placeholder=" No."></td>
             </tr>
             <tr>
-                <td class="st">$<span class="subtotal">0.00</span></td>
+                <td class="check_box"><input id="cafeaulait_checkbox" type="checkbox" name="cafeaulait" onclick="toggleInputs('cafeaulait_checkbox', 'cafeaulait_single_price', 'cafeaulait_double_price')"></td>
                 <td class="itemname"><strong>Cafe au Lait</strong></td>
                 <td class="itemdesc">
                     House blended coffee infused into a smooth, steamed milk
-                    <br><b>Single $2.00 <input type="radio" class="price" name="cafe" value="2"> Double $3.00 <input type="radio" class="price" name="cafe" value="3"></b>
+                    <br><b>Single $<?php echo getCoffeeRow($conn, 'cafeaulait_single'); $price ?>&nbsp<input type="float" id="cafeaulait_single_price" name="cafeaulait_single_price" class="price" step="0.01" style="display:none;"></b>
+                    <br><b>Double $<?php echo getCoffeeRow($conn, 'cafeaulait_double'); $price ?>&nbsp<input type="float" id="cafeaulait_double_price" name="cafeaulait_double_price" class="price" step="0.01" style="display:none;"></b>
                 </td>
-                <td><input type="number" class="quantity" name="quantity_cafe" min="0" max="999" placeholder=" No."></td>
             </tr>
             <tr>
-                <td class="st">$<span class="subtotal">0.00</span></td>
+                <td class="check_box"><input id="icedcappuccino_checkbox" type="checkbox" name="icedcappuccino" onclick="toggleInputs('icedcappuccino_checkbox', 'icedcappuccino_single_price', 'icedcappuccino_double_price')"></td>
                 <td class="itemname"><strong>Iced Capuccino</strong></td>
                 <td class="itemdesc">
                     Sweetened espresson blended with icy-cold milk and served in a chilled glass
-                    <br><b>Single $4.75 <input type="radio" class="price" id="capuccinoPrice" name="capuccino" value="4.75"> Double $5.75 <input type="radio" class="price" name="capuccino" value="5.75"></b>
+                    <br><b>Single $<?php echo getCoffeeRow($conn, 'icedcappuccino_single'); $price ?>&nbsp<input type="float" id="icedcappuccino_single_price" name="icedcappuccino_single_price" class="price" step="0.01" style="display:none;"></b>
+                    <br><b>Double $<?php echo getCoffeeRow($conn, 'icedcappuccino_double'); $price ?>&nbsp<input type="float" id="icedcappuccino_double_price" name="icedcappuccino_double_price" class="price" step="0.01" style="display:none;"></b>
                 </td>
-                <td><input type="number" class="quantity" name="quantity_capuccino" min="0" max="999" placeholder=" No."></td>
-            </tr>
-            <tr>
-                <td id="gt" colspan="4"><button type="submit" class="button-13">Update</button></td>
             </tr>
         </table>
+        <input type="submit" value="Update Prices">
+    </form>
     </div>
 </div>
 </div>
@@ -67,6 +148,19 @@
     <small><i>Copyright &copy; 2014 JavaJam Coffee House</i></small>
     <br><a href="poon@qichuan.com"><i>poon@qichuan.com</i></a>
 </footer>
-<script src="menu.js"></script>
+<script>
+    function toggleInput(checkboxId, inputId) {
+        const checkbox = document.getElementById(checkboxId);
+        const input = document.getElementById(inputId);
+        input.style.display = checkbox.checked ? 'inline' : 'none';
+    }
+    function toggleInputs(checkboxId, inputId1, inputId2) {
+        const checkbox = document.getElementById(checkboxId);
+        const input1 = document.getElementById(inputId1);
+        const input2 = document.getElementById(inputId2);
+        input1.style.display = checkbox.checked ? 'inline' : 'none';
+        input2.style.display = checkbox.checked ? 'inline' : 'none';
+    }
+</script>
 </body>
 </html>

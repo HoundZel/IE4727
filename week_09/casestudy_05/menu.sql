@@ -1,3 +1,5 @@
+-- import this database @ localhost:8000/phpmyadmin/
+
 create database coffee_prices;
 use coffee_prices;
 
