@@ -90,7 +90,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaJam Coffee House - Pricing </title>
+    <title>JavaJam Coffee House - Pricing Update</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -100,14 +100,20 @@
 <div id="flex-container">
 <div id ="navbar"><nav>
     <ul class="PPU">
-        <li><b>Product</b> &nbsp;</li>
-        <li><b>Price</b> &nbsp;</li>
-        <li><b>Update</b> &nbsp;</li>
+        <b>Product</b> &nbsp;
+        <br>
+        <b>Price</b> &nbsp;
+        <br>
+        <b>Update</b> &nbsp;
+        <br>
+        <br>
+        <br>
+        <li><a href="menu.php" class="navButton"><b>&lt;Back</b></a></li>
     </ul>
 </nav></div>
 <div id ="content">
     <div id="winding_road">
-        <h2>Coffee at JavaJam</h2>
+        <h2>Click to update product prices:</h2>
     </div>
     <div id="menu_table">
     <form method="POST" action="">
@@ -139,6 +145,7 @@
                 </td>
             </tr>
         </table>
+        <br>
         <input type="submit" value="Update Prices">
     </form>
     </div>

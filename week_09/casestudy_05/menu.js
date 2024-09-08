@@ -1,7 +1,7 @@
 // Function to calculate and update the subtotal for a given item row
 function updateSubtotal(row) {
     // Get the selected radio button value (price)
-    const selectedPrice = row.querySelector('input[type="radio"]:checked')?.value;
+    const selectedPrice = row.querySelector('input[type="radio"]:checked')?.dataset.price;
     // Get the entered quantity
     const quantity = row.querySelector('.quantity').value;
 
