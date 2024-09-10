@@ -2,14 +2,22 @@
 /* Styles for the form container */
 *{
     box-sizing: border-box;
-    margin-left: auto;margin-right:auto;
+    margin-left: auto;
+    margin-right:auto;
+    background-color: bisque;
+    color:black;
+}
+
+span{
+    color: red;
 }
 
 form{
+    background-color: rgb(110, 183, 201);
     max-width: 400px;
     margin-left: 0px;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -18,6 +26,28 @@ form div{
     margin-bottom: 15px;
     margin-left: 15px;
     margin-right: 15px;
+}
+form div label{
+    background-color: rgb(110, 183, 201);
+}
+
+form div input{
+    background-color: aliceblue;
+    border: 1px solid black;
+}
+form div input:valid{
+    border: 3px solid rgb(76, 176, 0);
+}
+/* form div input:invalid{
+    border: 1px solid red;
+} */
+
+form div select{
+    background-color: aliceblue;
+    border: 1px solid black;
+}
+form div select:valid{
+    border: 3px solid rgb(76, 176, 0);
 }
 
 label{
@@ -33,8 +63,22 @@ input{
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
+    background-color: antiquewhite;
+}
+select{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: antiquewhite;
 }
 
-button:hover{
-    background-color: #2980b9;
+#tada{
+    background-color: white;
+}
+#tada:hover{
+    background-color: yellow;
 }

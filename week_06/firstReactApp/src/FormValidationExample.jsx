@@ -3,6 +3,8 @@ import './App.css';
 
 const FormValidationExample = () => {
     const [formData, setFormData] = useState({
+        Name: '',
+        Course:'',
         username: '',
         email: '',
         password: '',
@@ -52,14 +54,35 @@ const FormValidationExample = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form class="form" onSubmit={handleSubmit}>
+            <div>
+                <label>Name:</label>
+                <input 
+                    type="text"
+                    name="Name"
+                    placeholder='Name'
+                    pattern="[A-Za-z\s]+"
+                    autoComplete='off'
+                    required
+                    onChange={handleChange} // Corrected here
+                />
+            </div>
+            <div>
+                <label>Course:</label>
+                <select name="course">
+                    <option value="EEE">EEE</option>
+                    <option value="IEM">IEM</option>
+                </select>
+            </div>
             <div>
                 <label>Username:</label>
                 <input 
                     type="text"
                     name="username"
                     placeholder='username'
+                    pattern="[A-Za-z\s]+"
                     autoComplete='off'
+                    required
                     onChange={handleChange} // Corrected here
                 />
                 {errors.username && <span>{errors.username}</span>}
@@ -70,6 +93,8 @@ const FormValidationExample = () => {
                     type="email"
                     name="email"
                     placeholder='example@email.com'
+                    pattern="^[A-Za-z0-9.-]+@[A-Za-z].[A-za-z]{2,3}" 
+                    required
                     autoComplete='off'
                     onChange={handleChange} // Corrected here
                 />
@@ -81,6 +106,8 @@ const FormValidationExample = () => {
                     type="password"
                     name="password"
                     placeholder='***********'
+                    pattern="(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{8,}" 
+                    required
                     autoComplete='off'
                     onChange={handleChange} // Corrected here
                 />
@@ -92,12 +119,14 @@ const FormValidationExample = () => {
                     type="password"
                     name="confirmPassword"
                     placeholder='***********'
+                    pattern="(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{8,}" 
+                    required
                     autoComplete='off'
                     onChange={handleChange} // Corrected here
                 />
                 {errors.confirmPassword && <span>{errors.confirmPassword}</span>}
             </div>
-            <button type='submit'>Submit</button>
+            <button id="tada" type='submit'>Submit</button>
         </form>
     );
 };
