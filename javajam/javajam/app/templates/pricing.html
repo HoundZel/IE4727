@@ -30,7 +30,8 @@
         <h2>Click to update product prices:</h2>
     </div>
     <div id="menu_table">
-    <form method="POST" action="">
+    <form action="{% url 'change_prices' %}" method="POST">
+        {% csrf_token %}
         <table border="1">
             <tr>
                 <td class="check_box"><input id = "justjava_checkbox" type="checkbox" name="justjava" onclick="toggleInput('justjava_checkbox', 'justjava_price')"></td>
@@ -45,8 +46,8 @@
                 <td class="itemname"><strong>Cafe au Lait</strong></td>
                 <td class="itemdesc">
                     House blended coffee infused into a smooth, steamed milk
-                    <br><b>Single $<?php echo getCoffeeRow($conn, 'cafeaulait_single'); $price ?>&nbsp<input type="float" id="cafeaulait_single_price" name="cafeaulait_single_price" class="price" step="0.01" style="display:none;"></b>
-                    <br><b>Double $<?php echo getCoffeeRow($conn, 'cafeaulait_double'); $price ?>&nbsp<input type="float" id="cafeaulait_double_price" name="cafeaulait_double_price" class="price" step="0.01" style="display:none;"></b>
+                    <br><b>Single ${{ cafeaulait_single_price.price }}&nbsp<input type="float" id="cafeaulait_single_price" name="cafeaulait_single_price" class="price" step="0.01" style="display:none;"></b>
+                    <br><b>Double ${{ cafeaulait_double_price.price }}&nbsp<input type="float" id="cafeaulait_double_price" name="cafeaulait_double_price" class="price" step="0.01" style="display:none;"></b>
                 </td>
             </tr>
             <tr>
@@ -54,8 +55,8 @@
                 <td class="itemname"><strong>Iced Capuccino</strong></td>
                 <td class="itemdesc">
                     Sweetened espresson blended with icy-cold milk and served in a chilled glass
-                    <br><b>Single $<?php echo getCoffeeRow($conn, 'icedcappuccino_single'); $price ?>&nbsp<input type="float" id="icedcappuccino_single_price" name="icedcappuccino_single_price" class="price" step="0.01" style="display:none;"></b>
-                    <br><b>Double $<?php echo getCoffeeRow($conn, 'icedcappuccino_double'); $price ?>&nbsp<input type="float" id="icedcappuccino_double_price" name="icedcappuccino_double_price" class="price" step="0.01" style="display:none;"></b>
+                    <br><b>Single ${{ icedcappuccino_single_price.price }}&nbsp<input type="float" id="icedcappuccino_single_price" name="icedcappuccino_single_price" class="price" step="0.01" style="display:none;"></b>
+                    <br><b>Double ${{ icedcappuccino_double_price.price }}&nbsp<input type="float" id="icedcappuccino_double_price" name="icedcappuccino_double_price" class="price" step="0.01" style="display:none;"></b>
                 </td>
             </tr>
         </table>

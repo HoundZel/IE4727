@@ -26,7 +26,7 @@
         <br>
         <li><a href="{% url 'pricing' %}" class="navButton"><b>Pricing Update</b></a></li>
         <br>
-        <li><a href="{% url 'sales' %}" class="navButton"><b>Sales Report</b></a></li>
+        <li><a href="{% url 'sale' %}" class="navButton"><b>Sales Report</b></a></li>
     </ul>
 </nav></div>
 <div id ="content">
@@ -34,46 +34,50 @@
         <h2>Coffee at JavaJam</h2>
     </div>
     <div id="menu_table">
-        <form method="POST" action=""><table border="1">
-            <tr>
-                <th colspan="3"></th>
-                <th>Sub Total</th>
-            </tr>
-            <tr>
-                <td class="itemname"><strong>Just Java</strong></td>
-                <td class="itemdesc">
-                    Regular house blend, decaffinated coffee, or flavour of the day
-                    <br><b>Endless Cup $2.00  <input type="radio" id="javaPrice" class="price" name="java" value="2" checked></b>
-                </td>
-                <td><input type="number" class="quantity" name="quantity_java" min="0" max="999" placeholder=" No."></td>
-                <td class="st">$<span class="subtotal">0.00</span></td>
-            </tr>
-            <tr>
-                <td class="itemname"><strong>Cafe au Lait</strong></td>
-                <td class="itemdesc">
-                    House blended coffee infused into a smooth, steamed milk
-                    <br><b>Single $2.00 <input type="radio" class="price" name="cafe" value="2"> Double $3.00 <input type="radio" class="price" name="cafe" value="3"></b>
-                </td>
-                <td><input type="number" class="quantity" name="quantity_cafe" min="0" max="999" placeholder=" No."></td>
-                <td class="st">$<span class="subtotal">0.00</span></td>
-            </tr>
-            <tr>
-                <td class="itemname"><strong>Iced Capuccino</strong></td>
-                <td class="itemdesc">
-                    Sweetened espresson blended with icy-cold milk and served in a chilled glass
-                    <br><b>Single $4.75 <input type="radio" class="price" id="capuccinoPrice" name="capuccino" value="4.75"> Double $5.75 <input type="radio" class="price" name="capuccino" value="5.75"></b>
-                </td>
-                <td><input type="number" class="quantity" name="quantity_capuccino" min="0" max="999" placeholder=" No."></td>
-                <td class="st">$<span class="subtotal">0.00</span></td>
-            </tr>
-            <tr>
-                <td id="gt" colspan="3">Grand Total :</td>
-                <td class="st">$<span id="grandtotal">0.00</span></td>
-            </tr>
-        </table>
-        <br>
-        <input type="submit" value="Order Now!">
-        </form>
+        <form action="{% url 'order' %}" method="POST">
+            {% csrf_token %}
+            <table border="1">
+                <tr>
+                    <th colspan="3"></th>
+                    <th>Sub Total</th>
+                </tr>
+                <tr>
+                    <td class="itemname"><strong>Just Java</strong></td>
+                    <td class="itemdesc">
+                        Regular house blend, decaffinated coffee, or flavour of the day
+                        <br><b>Endless Cup ${{ just_java_price.price }}&nbsp<input type="radio" id="javaPrice" class="price" name="java" value="justjava" data-price="{{ just_java_price.price }}"checked></b>
+                    </td>
+                    <td><input type="number" class="quantity" name="quantity_java" min="0" max="999" placeholder=" No."></td>
+                    <td class="st">$<span class="subtotal">0.00</span></td>
+                </tr>
+                <tr>
+                    <td class="itemname"><strong>Cafe au Lait</strong></td>
+                    <td class="itemdesc">
+                        House blended coffee infused into a smooth, steamed milk
+                        <br><b>Single ${{ cafeaulait_single_price.price }}&nbsp<input type="radio" class="price" name="cafe" value="cafeaulait_single" data-price="{{ cafeaulait_single_price.price }}"> 
+                               Double ${{ cafeaulait_double_price.price }}&nbsp<input type="radio" class="price" name="cafe" value="cafeaulait_double" data-price="{{ cafeaulait_double_price.price }}"></b>
+                    </td>
+                    <td><input type="number" class="quantity" name="quantity_cafe" min="0" max="999" placeholder=" No."></td>
+                    <td class="st">$<span class="subtotal">0.00</span></td>
+                </tr>
+                <tr>
+                    <td class="itemname"><strong>Iced Capuccino</strong></td>
+                    <td class="itemdesc">
+                        Sweetened espresson blended with icy-cold milk and served in a chilled glass
+                        <br><b>Single ${{ icedcappuccino_single_price.price }}&nbsp<input type="radio" class="price" name="capuccino" value="icedcappuccino_single" data-price="{{ icedcappuccino_single_price.price }}"> 
+                               Double ${{ icedcappuccino_double_price.price }}&nbsp<input type="radio" class="price" name="capuccino" value="icedcappuccino_double" data-price="{{ icedcappuccino_double_price.price }}"></b>
+                    </td>
+                    <td><input type="number" class="quantity" name="quantity_capuccino" min="0" max="999" placeholder=" No."></td>
+                    <td class="st">$<span class="subtotal">0.00</span></td>
+                </tr>
+                <tr>
+                    <td id="gt" colspan="3">Grand Total :</td>
+                    <td class="st">$<span id="grandtotal">0.00</span></td>
+                </tr>
+            </table>
+            <br>
+            <input type="submit" value="Order Now!">
+            </form>
     </div>
 </div>
 </div>
