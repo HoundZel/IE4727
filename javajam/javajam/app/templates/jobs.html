@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaJam Coffee House - Jobs </title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/styles.css' %}">
+</head>
+<body>
+<header>
+    <h1>JavaJam Coffee House</h1>
+</header>
+<div id="flex-container">
+    <div id ="navbar"><nav>
+        <ul>
+            <li><a href="{% url 'index' %}" class="navButton"><b>Home</b></a> &nbsp;</li>
+            <br>
+            <li><a href="{% url 'menu' %}" class="navButton"><b>Menu</b></a> &nbsp;</li>
+            <br>
+            <li><a href="{% url 'music' %}" class="navButton"><b>Music</b></a> &nbsp;</li>
+            <br>
+            <li><a href="{% url 'jobs' %}" class="navButton"><b>Jobs</b></a></li>
+        </ul>
+    </nav></div>
+    <div id="content">
+        <div id="subtitle">
+            <h2>Jobs at JavaJam</h2>
+        </div>
+        <p id="musicdesc">
+            Want to work at javaJam? Fill out the form below to start your application. Required fields are marked with an asterisk (*).
+        </p>
+        <div id="application">
+        <form method="POST" action="{% url 'show_form' %}" autocomplete="on">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="buttons">
+                <input type="reset" value="Clear">
+                <input type="submit" value="Apply Now">
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+<footer>
+    <small><i>Copyright &copy; 2014 JavaJam Coffee House</i></small>
+    <br><a href="poon@qichuan.com"><i>poon@qichuan.com</i></a>
+</footer>
+
+<script>
+    // Set the minimum date to tomorrow
+    document.addEventListener('DOMContentLoaded', function() {
+        var dateInput = document.querySelector('input[type="date"]');
+        if (dateInput) {
+            var today = new Date();
+            var tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            var minDate = tomorrow.toISOString().split('T')[0];
+            dateInput.setAttribute('min', minDate);
+        }
+    });
+</script>
+</body>
+</html>
